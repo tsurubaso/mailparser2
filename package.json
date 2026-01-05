@@ -9,7 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "mailparser": "^3.9.1",
     "next": "16.1.1",
+    "poplib": "^0.1.7",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
