@@ -10,51 +10,53 @@ export async function GET() {
     client = await connectPop3();
 
     const messages = [];
+    let toRead = 0;
+    let done = 0;
 
     await new Promise((resolve, reject) => {
       client.on("list", (status, msgcount) => {
         if (!status) return reject(new Error("LIST failed"));
 
-        let read = Math.min(msgcount, 3);
-        let done = 0;
+        toRead = Math.min(msgcount, 3);
+        if (toRead === 0) return resolve();
 
-        if (read === 0) return resolve();
-
-        for (let i = 1; i <= read; i++) {
+        for (let i = 1; i <= toRead; i++) {
           client.retr(i);
         }
+      });
 
-        client.on("retr", async (status, msgnumber, data) => {
-          if (status) {
-            const raw = Buffer.isBuffer(data)
-              ? data
-              : Buffer.from(data, "binary");
+      client.on("retr", async (status, msgnumber, data) => {
+        if (status) {
+          const raw = Buffer.isBuffer(data)
+            ? data
+            : Buffer.from(data, "binary");
 
-            const parsed = await parseEmail(raw);
+          const parsed = await parseEmail(raw);
 
-            messages.push({
-              subject: parsed.subject,
-              from: parsed.from?.text,
-              date: parsed.date,
-              text: parsed.text,
-            });
-          }
+          messages.push({
+            index: msgnumber,
+            subject: parsed.subject,
+            from: parsed.from?.text,
+            date: parsed.date,
+            text: parsed.text,
+          });
+        }
 
-          done++;
-          if (done === read) resolve();
-        });
+        done++;
+        if (done === toRead) resolve();
       });
 
       client.list();
     });
 
     client.quit();
-
     return Response.json({ messages });
+
   } catch (err) {
     if (client) client.quit();
-    return new Response(JSON.stringify({ error: err.message }), {
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({ error: err.message }),
+      { status: 500 }
+    );
   }
 }
