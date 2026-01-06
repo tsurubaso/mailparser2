@@ -99,7 +99,7 @@ maildb=#
 ```sql
 CREATE TABLE emails (
   id SERIAL PRIMARY KEY,
-  message_uid TEXT UNIQUE,
+  message_id TEXT UNIQUE,
   subject TEXT,
   sender TEXT,
   received_at TIMESTAMP,
