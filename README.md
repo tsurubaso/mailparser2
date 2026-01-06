@@ -1,7 +1,7 @@
 
 ---
 
-````md
+
 # Pipeline Mail + PostgreSQL (Next.js / Docker)
 
 ## Objectif
@@ -67,7 +67,7 @@ Commande PowerShell :
 
 ```powershell
 docker run -d --name mail-db -e POSTGRES_USER=mailuser -e POSTGRES_PASSWORD=mailpass -e POSTGRES_DB=maildb -p 5432:5432 -v maildata:/var/lib/postgresql/data postgres:16
-````
+```
 
 Résultat :
 
@@ -84,6 +84,7 @@ Accès via Docker :
 
 ```powershell
 docker exec -it mail-db psql -U mailuser -d maildb
+
 ```
 
 Prompt attendu :
@@ -92,7 +93,6 @@ Prompt attendu :
 maildb=#
 ```
 
----
 
 ## 6. Schéma de base minimal
 
@@ -148,14 +148,4 @@ Les données sont conservées tant que le volume existe.
 * environnement isolé et reproductible
 * prêt pour analyse automatique des emails
 
-```
 
----
-
-Si tu veux, on peut maintenant :
-- ajouter la gestion UIDL
-- brancher l’insertion automatique depuis Next.js
-- définir un modèle d’analyse (règles, scoring, IA)
-
-Dis-moi la suite.
-```
