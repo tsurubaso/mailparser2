@@ -1,5 +1,6 @@
 import { connectPop3 } from "@/lib/mail/pop3";
 import { parseEmail } from "@/lib/mail/parser";
+import { saveMail } from "@/lib/saveMail";
 
 export const runtime = "nodejs";
 
@@ -9,16 +10,15 @@ export async function GET() {
   try {
     client = await connectPop3();
 
-    const messages = [];
-    let toRead = 0;
-    let done = 0;
+    let processed = 0;
 
     await new Promise((resolve, reject) => {
       client.on("list", (status, msgcount) => {
         if (!status) return reject(new Error("LIST failed"));
 
         const MAX_MAILS = 10;
-        toRead = Math.min(msgcount, MAX_MAILS);
+        const toRead = Math.min(msgcount, MAX_MAILS);
+
         if (toRead === 0) return resolve();
 
         for (let i = 1; i <= toRead; i++) {
@@ -27,34 +27,42 @@ export async function GET() {
       });
 
       client.on("retr", async (status, msgnumber, data) => {
-        if (status) {
+        if (!status) {
+          processed++;
+          return;
+        }
+
+        try {
           const raw = Buffer.isBuffer(data)
             ? data
             : Buffer.from(data, "binary");
 
           const parsed = await parseEmail(raw);
+          await saveMail(parsed);
 
-          messages.push({
-            index: msgnumber,
-            subject: parsed.subject,
-            from: parsed.from?.text,
-            date: parsed.date,
-            text: parsed.text,
-          });
+          processed++;
+        } catch (err) {
+          reject(err);
         }
 
-        done++;
-        if (done === toRead) resolve();
+        if (processed === Math.min(processed, 10)) {
+          resolve();
+        }
       });
 
       client.list();
     });
 
     client.quit();
-    return Response.json({ messages });
+
+    return Response.json({
+      status: "ok",
+      saved: processed,
+    });
 
   } catch (err) {
     if (client) client.quit();
+
     return new Response(
       JSON.stringify({ error: err.message }),
       { status: 500 }
