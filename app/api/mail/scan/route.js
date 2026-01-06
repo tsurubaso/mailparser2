@@ -17,7 +17,8 @@ export async function GET() {
       client.on("list", (status, msgcount) => {
         if (!status) return reject(new Error("LIST failed"));
 
-        toRead = Math.min(msgcount, 3);
+        const MAX_MAILS = 10;
+        toRead = Math.min(msgcount, MAX_MAILS);
         if (toRead === 0) return resolve();
 
         for (let i = 1; i <= toRead; i++) {
