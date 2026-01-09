@@ -17,7 +17,7 @@ export default async function MailsPage() {
         {data.mails.map((mail) => (
           <a
             key={mail.id}
-            href={`/mail/${mail.id}`}
+            href={`/mail/${mail.id}/search`}
             className="block p-4 border rounded-lg shadow hover:shadow-lg transition"
           >
             <h2 className="font-semibold text-lg">{mail.subject || "(No Subject)"}</h2>

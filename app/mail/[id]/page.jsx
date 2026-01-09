@@ -1,3 +1,6 @@
+import MailActions from "@/components/MailActions";
+
+
 export default async function MailPage({ params }) {
   const { id } = await params; // ← c’est ça qu’il te manquait
   console.log("Mail ID:", id);
@@ -11,6 +14,7 @@ export default async function MailPage({ params }) {
 
   return (
     <main className="p-6 max-w-3xl mx-auto">
+      <MailActions id={id} />
       <h1>{mail.subject}</h1>
       <p>From: {mail.from}</p>
       <p>To: {mail.to}</p>
