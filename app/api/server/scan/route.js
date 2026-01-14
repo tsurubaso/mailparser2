@@ -1,4 +1,4 @@
-/*import { connectPop3 } from "@/lib/mail/pop3";
+/*import { connectPop3 } from "@/lib/pop3";
 
 import { parseEmail } from "@/lib/mail/parser";
 import { saveMail } from "@/lib/saveMail";
@@ -62,9 +62,9 @@ await new Promise((resolve, reject) => {
 }
 */
 
-import { connectPop3 } from "@/lib/mail/pop3";
+import { connectPop3 } from "@/lib/pop3";
 import { parseEmail } from "@/lib/mail/parser";
-import { saveMail } from "@/lib/saveMail";
+import { saveMail } from "@/lib/mail/saveMail";
 
 export const runtime = "nodejs";
 

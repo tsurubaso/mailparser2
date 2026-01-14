@@ -1,5 +1,5 @@
 async function fetchMailCount() {
-  const res = await fetch("http://localhost:3000/api/mail/mailcount", {
+  const res = await fetch("http://localhost:3000/api/server/mailcount", {
     cache: "no-store",
   });
 

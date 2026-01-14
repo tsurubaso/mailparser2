@@ -22,7 +22,7 @@ export default function Home() {
           </a>
 
           <a
-            href="/api/mail/scan"
+            href="/api/server/scan"
             className="flex flex-col items-center justify-center border rounded-lg p-6 hover:bg-gray-100 transition"
           >
             <span className="text-xl font-semibold">Scan</span>
@@ -30,7 +30,7 @@ export default function Home() {
           </a>
 
           <a
-            href="/api/mail-count"
+            href="/server/mailcount"
             className="flex flex-col items-center justify-center border rounded-lg p-6 hover:bg-gray-100 transition"
           >
             <span className="text-xl font-semibold">Stats</span>

@@ -1,4 +1,4 @@
-import { connectPop3 } from "@/lib/mail/pop3";
+import { connectPop3 } from "@/lib/pop3";
 
 export const runtime = "nodejs";
 
