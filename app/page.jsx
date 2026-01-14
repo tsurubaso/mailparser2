@@ -1,65 +1,69 @@
-import Image from "next/image";
+"use client";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+    <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="w-full max-w-3xl bg-white rounded-xl shadow-md p-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          Easy Mail Parser
+        </h1>
+
+        <p className="text-gray-600 mb-8">
+          Automatic collection, analysis and management of emails.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/mails"
+            className="flex flex-col items-center justify-center border rounded-lg p-6 hover:bg-gray-100 transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            <span className="text-xl font-semibold">Mails</span>
+            <span className="text-sm text-gray-500 mt-1">See your emails</span>
           </a>
+
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/api/mail/scan"
+            className="flex flex-col items-center justify-center border rounded-lg p-6 hover:bg-gray-100 transition"
           >
-            Documentation
+            <span className="text-xl font-semibold">Scan</span>
+            <span className="text-sm text-gray-500 mt-1">Get your emails</span>
+          </a>
+
+          <a
+            href="/api/mail-count"
+            className="flex flex-col items-center justify-center border rounded-lg p-6 hover:bg-gray-100 transition"
+          >
+            <span className="text-xl font-semibold">Stats</span>
+            <span className="text-sm text-gray-500 mt-1">Mail count</span>
+          </a>
+
+          <button
+            onClick={async () => {
+              if (!confirm("Vider la table daily ?")) return;
+
+              await fetch("/api/daily/clear", { method: "POST" });
+              alert("Table daily vidée");
+            }}
+            className="px-6 py-3 rounded-md bg-red-600 text-white hover:bg-red-700"
+          >
+            Empty Daily Table
+          </button>
+
+          <a
+            href="/mails/monthly"
+            className="flex flex-col items-center justify-center border rounded-lg p-6 hover:bg-gray-100"
+          >
+            <span className="text-xl font-semibold">Monthly</span>
+            <span className="text-sm text-gray-500">Monthly Archived mails
+
+            </span>
           </a>
         </div>
-      </main>
-    </div>
+
+        <footer className="mt-10 text-sm text-gray-400 text-center">
+          Mail Analyzer · POP3 · PostgreSQL · Next.js
+        </footer>
+      </div>
+    </main>
   );
 }

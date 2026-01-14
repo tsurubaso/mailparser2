@@ -14,8 +14,8 @@ export async function GET() {
           reject(new Error("LIST failed"));
           return;
         }
-
         resolve(count);
+        console.log("Message count:", count);
       });
 
       client.list();
@@ -24,13 +24,11 @@ export async function GET() {
     client.quit();
 
     return Response.json({
-      status: "ok",
       messageCount: msgcount,
     });
 
   } catch (err) {
     if (client) client.quit();
-
     return new Response(
       JSON.stringify({ error: err.message }),
       { status: 500 }

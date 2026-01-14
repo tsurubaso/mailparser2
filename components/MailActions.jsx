@@ -1,12 +1,19 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 export default function MailActions({ id }) {
+  const router = useRouter();
+
   async function handleAction(action) {
     await fetch(`/api/mail/${id}/selection`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action }),
     });
+
+    // 🔴 redirection après suppression
+    router.push("/mails");
+    router.refresh(); // optionnel mais recommandé
   }
 
   return (

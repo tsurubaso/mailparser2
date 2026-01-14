@@ -5,7 +5,7 @@ import { pool } from "@/lib/db";
 export const runtime = "nodejs";
 
 export async function POST(req, { params }) {
-  const { id } = params;
+  const { id } = await params;
   const { action } = await req.json();
 
   if (!["keep", "delete"].includes(action)) {
@@ -46,7 +46,10 @@ export async function POST(req, { params }) {
   }
 
   if (action === "delete") {
-    // delete manuel futur (placeholder)
+       await pool.query(
+      "DELETE FROM emails WHERE id = $1",
+      [id]
+    );
   }
 
   return Response.json({ ok: true });
