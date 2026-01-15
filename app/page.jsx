@@ -14,10 +14,10 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <a
-            href="/mails"
+            href="/daily/mails"
             className="flex flex-col items-center justify-center border rounded-lg p-6 hover:bg-gray-100 transition"
           >
-            <span className="text-xl font-semibold">Mails</span>
+            <span className="text-xl font-semibold">Daily Mails</span>
             <span className="text-sm text-gray-500 mt-1">See your emails</span>
           </a>
 
@@ -50,12 +50,21 @@ export default function Home() {
           </button>
 
           <a
-            href="/mails/monthly"
+            href="/monthly/mails"
             className="flex flex-col items-center justify-center border rounded-lg p-6 hover:bg-gray-100"
           >
             <span className="text-xl font-semibold">Monthly</span>
-            <span className="text-sm text-gray-500">Monthly Archived mails
-
+            <span className="text-sm text-gray-500">
+              Monthly Archived mails
+            </span>
+          </a>
+          <a
+            href="/permanent/mails"
+            className="flex flex-col items-center justify-center border rounded-lg p-6 hover:bg-gray-100"
+          >
+            <span className="text-xl font-semibold">Permanent</span>
+            <span className="text-sm text-gray-500">
+              Permanently Archived
             </span>
           </a>
         </div>

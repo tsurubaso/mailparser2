@@ -5,7 +5,7 @@ export default async function MailPage({ params }) {
   const { id } = await params; // ← c’est ça qu’il te manquait
   console.log("Mail ID:", id);
 
-  const res = await fetch(`http://localhost:3000/api/mail/${id}`, {
+  const res = await fetch(`http://localhost:3000/api/daily/mail/${id}`, {
     cache: "no-store",
   });
   console.log("Fetch res:", res.ok, res.status);

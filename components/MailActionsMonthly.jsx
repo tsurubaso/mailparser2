@@ -5,14 +5,14 @@ export default function MailActions({ id }) {
   const router = useRouter();
 
   async function handleAction(action) {
-    await fetch(`/api/daily/mail/${id}/selection`, {
+    await fetch(`/api/monthly/mail/${id}/selection`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action }),
     });
 
     // 🔴 redirection après suppression
-    router.push("/daily/mails");
+    router.push("/monthly/mails");
     router.refresh(); // optionnel mais recommandé
   }
 
@@ -22,7 +22,7 @@ export default function MailActions({ id }) {
         onClick={() => handleAction("keep")}
         className="px-4 py-2 border rounded hover:bg-green-100"
       >
-        保管する（1ヶ月）
+        保管する（Forever）
       </button>
 
       <button

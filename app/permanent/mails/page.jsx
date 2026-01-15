@@ -1,5 +1,5 @@
 async function fetchMails() {
-  const res = await fetch("http://localhost:3000/api/mail/listMonthly", {
+  const res = await fetch("http://localhost:3000/api/permanent/mails/list", {
     cache: "no-store",
   });
 
@@ -40,7 +40,7 @@ export default async function MonthlyMailsPage() {
 
       {Object.values(grouped).map((group) => (
         <section key={group.label} className="mb-10">
-          {/* Month header */}
+          {/* Perma header */}
           <div className="mb-4 px-4 py-2 rounded-lg bg-blue-100 text-blue-900 font-semibold capitalize">
             {group.label}
           </div>
@@ -50,7 +50,7 @@ export default async function MonthlyMailsPage() {
             {group.mails.map((mail) => (
               <a
                 key={mail.id}
-                href={`/mail/monthly/${mail.id}/search`}
+                href={`/permanent/keywords/${mail.id}`}
                 className="block p-4 border rounded-lg shadow hover:shadow-lg transition bg-white"
               >
                 <h2 className="font-semibold text-lg">

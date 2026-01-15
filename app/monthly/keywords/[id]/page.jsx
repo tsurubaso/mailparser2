@@ -3,7 +3,7 @@ import { extractKeywordLines } from "@/lib/mail/extractKeywords";
 export default async function MailSearchPage({ params }) {
   const { id } = await params;
 
-  const res = await fetch(`http://localhost:3000/api/mail/monthly/${id}`, {
+  const res = await fetch(`http://localhost:3000/api/monthly/mail/${id}`, {
     cache: "no-store",
   });
   const mail = await res.json();
@@ -33,7 +33,7 @@ export default async function MailSearchPage({ params }) {
       {/* Bouton en haut */}
       <div className="mb-4">
         <a
-          href={`/mail/monthly/${id}`}
+          href={`/monthly/mail/${id}`}
           className="inline-block px-4 py-2 border rounded hover:bg-gray-100"
         >
           Mailを確認
