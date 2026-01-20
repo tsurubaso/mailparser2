@@ -3,7 +3,7 @@ import {getMonthlyMails } from "@/lib/mail/getMonthlyMails.js";
 export const runtime = "nodejs";
 
 export async function GET() {
-  console.log("POP3 LIST");
+
   try {
     const mails = await getMonthlyMails();
 

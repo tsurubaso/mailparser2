@@ -12,12 +12,12 @@ async function fetchMails() {
 
 function groupByMonth(mails) {
   return mails.reduce((acc, mail) => {
-    const date = new Date(mail.received_at);
+    const date = new Date(mail.date_received);
     const key = `${date.getFullYear()}-${date.getMonth()}`;
 
     if (!acc[key]) {
       acc[key] = {
-        label: date.toLocaleString("fr-FR", {
+        label: date.toLocaleString("ja-JP", {
           month: "long",
           year: "numeric",
         }),
@@ -62,7 +62,7 @@ export default async function MonthlyMailsPage() {
                 </p>
 
                 <p className="text-sm text-gray-500">
-                  {new Date(mail.received_at).toLocaleString()}
+                  {new Date(mail.date_received).toLocaleString()}
                 </p>
 
                 <p className="mt-2 text-gray-700 text-sm line-clamp-3">

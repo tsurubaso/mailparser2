@@ -29,7 +29,7 @@ export default async function MailsPage() {
             </h2>
             <p className="text-sm text-gray-600">From: {mail.sender}</p>
             <p className="text-sm text-gray-500">
-              {new Date(mail.received_at).toLocaleString()}
+              {new Date(mail.date_received).toLocaleString()}
             </p>
             <p className="mt-2 text-gray-700 text-sm line-clamp-3">
               {mail.preview}
