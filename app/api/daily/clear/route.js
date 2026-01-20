@@ -4,7 +4,7 @@ export const runtime = "nodejs";
 
 export async function POST() {
   try {
-    await pool.query("TRUNCATE TABLE emails CASCADE;");
+    await pool.query("TRUNCATE TABLE mail_daily CASCADE;");
 
     return Response.json({
       status: "ok",

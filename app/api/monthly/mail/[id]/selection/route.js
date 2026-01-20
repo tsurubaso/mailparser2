@@ -15,8 +15,8 @@ export async function POST(req, { params }) {
   if (action === "keep") {
     // 1. lire le mail original
     const { rows } = await pool.query(
-      `SELECT subject, sender, recipient, body, date_received
-       FROM emails_kept
+      `SELECT subject, sender, body, date_received
+       FROM mail_monthly
        WHERE id = $1`,
       [id]
     );
@@ -27,18 +27,17 @@ export async function POST(req, { params }) {
 
     const mail = rows[0];
 
-    // 2. dupliquer dans emails_perma
+    // 2. dupliquer dans mail_selected
     await pool.query(
       `
-      INSERT INTO emails_perma
-        (original_mail_id, subject, sender, recipient, body, date_received)
-      VALUES ($1, $2, $3, $4, $5, $6)
+      INSERT INTO mail_selected
+        (original_mail_id, subject, sender, body, date_received)
+      VALUES ($1, $2, $3, $4, $5)
       `,
       [
         id,
         mail.subject,
         mail.sender,
-        mail.recipient,
         mail.body,
         mail.date_received,
       ]
@@ -47,7 +46,7 @@ export async function POST(req, { params }) {
 
   if (action === "delete") {
        await pool.query(
-      "DELETE FROM emails_kept WHERE id = $1",
+      "DELETE FROM mail_monthly WHERE id = $1",
       [id]
     );
   }

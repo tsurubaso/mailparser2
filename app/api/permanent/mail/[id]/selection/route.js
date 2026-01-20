@@ -14,7 +14,7 @@ export async function POST(req, { params }) {
 
   if (action === "delete") {
        await pool.query(
-      "DELETE FROM emails_perma WHERE id = $1",
+      "DELETE FROM mail_selected WHERE id = $1",
       [id]
     );
   }

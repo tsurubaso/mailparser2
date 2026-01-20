@@ -19,7 +19,6 @@ export async function GET(req, { params }) {
       id: mail.id,
       subject: mail.subject,
       from: mail.sender,
-      to: mail.recipient,
       date: mail.date_received,
       body: mail.body,       // texte
     });
