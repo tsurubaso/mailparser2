@@ -27,7 +27,7 @@ export default async function MailImportResultPage() {
 
         <div className="flex flex-col items-center gap-2">
           <div className="text-5xl font-extrabold text-green-600">
-            {data.saved}
+            {data.messageCount}
           </div>
           <div className="text-sm text-gray-500">
             emails saved
