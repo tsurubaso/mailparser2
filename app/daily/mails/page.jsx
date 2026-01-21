@@ -1,24 +1,52 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
 import FilterByKeywords from "@/components/FilterByKeywords";
+import keywords from "@/data/keywordslist.json";
 
-async function fetchMails() {
-  const res = await fetch("http://localhost:3000/api/daily/mails/list", {
-    cache: "no-store",
-  });
+export default function MailsPage() {
+  const [mails, setMails] = useState([]);
+  const [activeKeywords, setActiveKeywords] = useState([]);
 
-  return res.json();
-}
+  useEffect(() => {
+    async function fetchMails() {
+      const res = await fetch(
+        "http://localhost:3000/api/daily/mails/list",
+        { cache: "no-store" }
+      );
+      const data = await res.json();
+      setMails(data.mails);
+    }
 
-export default async function MailsPage() {
-  const data = await fetchMails();
+    fetchMails();
+  }, []);
+
+  const filteredMails = useMemo(() => {
+    if (activeKeywords.length === 0) return mails;
+
+    const activeRegexes = keywords
+      .filter((k) => activeKeywords.includes(k.name))
+      .map((k) => new RegExp(k.pattern, k.flags));
+
+    return mails.filter((mail) => {
+      const content = [
+        mail.subject,
+        mail.preview,
+        mail.body
+      ].join(" ");
+
+      return activeRegexes.some((re) => re.test(content));
+    });
+  }, [activeKeywords, mails]);
 
   return (
     <main className="p-6 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Daily Inbox</h1>
-      {/* Keywords filter */}
-      <FilterByKeywords />
+
+      <FilterByKeywords onChange={setActiveKeywords} />
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {data.mails.map((mail) => (
+        {filteredMails.map((mail) => (
           <a
             key={mail.id}
             href={`/daily/keywords/${mail.id}`}
