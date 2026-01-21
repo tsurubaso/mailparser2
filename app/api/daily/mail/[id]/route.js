@@ -3,14 +3,14 @@ import { getMailById } from "@/lib/mail/getMailById";
 export const runtime = "nodejs";
 
 export async function GET(req, { params }) {
-  const { id } = await params; // ← c’est ça qu’il te manquait
+  const { id } = await params;
 
   try {
-    console.log("Fetching mail with ID:", id);
     const mail = await getMailById(id);
+
     if (!mail) {
-      return new Response(
-        JSON.stringify({ error: "Mail not found" }),
+      return Response.json(
+        { error: "Mail not found" },
         { status: 404 }
       );
     }
@@ -21,12 +21,14 @@ export async function GET(req, { params }) {
       from: mail.sender,
       to: mail.recipient,
       date: mail.date_received,
-      body: mail.body,       // texte
+      body: mail.body
     });
 
   } catch (err) {
-    return new Response(
-      JSON.stringify({ error: err.message }),
+    console.error(err);
+
+    return Response.json(
+      { error: err.message ?? "Internal Server Error" },
       { status: 500 }
     );
   }

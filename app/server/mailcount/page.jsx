@@ -1,5 +1,5 @@
 async function fetchMailImportResult() {
-  const res = await fetch("http://localhost:3000/api/server/mailcount", {
+  const res = await fetch(`/api/server/mailcount`, {
     cache: "no-store",
   });
 

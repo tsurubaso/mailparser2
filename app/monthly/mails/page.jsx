@@ -1,5 +1,5 @@
 async function fetchMails() {
-  const res = await fetch("http://localhost:3000/api/monthly/listMonthly", {
+  const res = await fetch(`/api/monthly/listMonthly`, {
     cache: "no-store",
   });
 

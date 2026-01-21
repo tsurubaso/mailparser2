@@ -11,7 +11,7 @@ export default function MailsPage() {
   useEffect(() => {
     async function fetchMails() {
       const res = await fetch(
-        "http://localhost:3000/api/daily/mails/list",
+        `/api/daily/mails/list`,
         { cache: "no-store" }
       );
       const data = await res.json();
@@ -49,7 +49,7 @@ export default function MailsPage() {
         {filteredMails.map((mail) => (
           <a
             key={mail.id}
-            href={`/daily/keywords/${mail.id}`}
+            href={`/daily/mail/${mail.id}`}
             className="block p-4 border rounded-lg shadow hover:shadow-lg transition"
           >
             <h2 className="font-semibold text-lg">

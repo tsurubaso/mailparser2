@@ -3,7 +3,7 @@ import { extractKeywordLines } from "@/lib/mail/extractKeywords";
 export default async function MailSearchPage({ params }) {
   const { id } = await params;
 
-  const res = await fetch(`http://localhost:3000/api/permanent/mail/${id}`, {
+  const res = await fetch(`/api/permanent/mail/${id}`, {
     cache: "no-store",
   });
   const mail = await res.json();
