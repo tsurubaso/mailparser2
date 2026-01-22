@@ -33,7 +33,7 @@ export default async function MailSearchPage({ params }) {
       {/* Bouton en haut */}
       <div className="mb-4">
         <a
-          href={`http://localhost:3000/daily/mail/${id}`}
+          href={`/daily/mail/${id}`}
           className="inline-block px-4 py-2 border rounded hover:bg-gray-100"
         >
           Mailを確認

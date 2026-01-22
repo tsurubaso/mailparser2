@@ -15,14 +15,7 @@ export async function GET(req, { params }) {
       );
     }
 
-    return Response.json({
-      id: mail.id,
-      subject: mail.subject,
-      from: mail.sender,
-      to: mail.recipient,
-      date: mail.date_received,
-      body: mail.body,       // texte
-    });
+return Response.json(mail); // Renvoie l'objet mail directement
 
   } catch (err) {
     return new Response(
