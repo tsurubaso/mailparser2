@@ -10,8 +10,15 @@ export async function GET(request, { params }) {
     if (!mail) {
       return new Response(JSON.stringify({ error: "Mail non trouvé" }), { status: 404 });
     }
-
-    return Response.json(mail); // Renvoie l'objet mail directement
+  return Response.json({
+      id: mail.id,
+      subject: mail.subject,
+      from: mail.sender,
+      to: mail.recipient,
+      date: mail.date_received,
+      body: mail.body,       // texte
+    });
+    //return Response.json(mail); // Renvoie l'objet mail directement
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), { status: 500 });
   }
